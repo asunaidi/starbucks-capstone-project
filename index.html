@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stackoverflow Blog</title>
+    <style type="text/css">
+    .header {
+        width: 100%;
+         height:300px;
+         background-image : url(career.jpg);
+         background-repeat: no-repeat;
+          background-size: 100% 100% !important;
+         
+
+    }
+    .title{
+        color:rgb(0, 38, 77);
+        margin-bottom: 50px;
+ }
+ .main{
+    text-align:  -webkit-center;
+
+
+ }
+ hr {
+    border: none;
+    height: 1px;
+    /* Set the hr color 
+*/
+    color: rgb(204, 255, 255); /* old IE */
+    background-color: rgb(204, 255, 255); /* Modern Browsers */
+}
+p{
+    width:80%;
+    text-align: justify;
+    font-size: 20px;
+    line-height: 23pt;
+}
+.question{
+    font-weight: bold;
+    font-size: 22px;
+
+}
+img{
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+
+  
+    </style>
+</head>
+<body>
+<div class ="row header" > </div>
+<div class ="row main" >
+ <h1 class="title" >Finally Graduated, What Now?</h1>
+ 
+ <p>Back at school days, the struggle was all about passing the years and graduating with hopefully good grades. The goal was clear and shared among all students. After graduating from univerisity, you will find yourself in a situation you have not been through before. There is no clear tomorrow and you will need to take full control on how you will spend the rest of your life. Do you want to pursue your studies? Do you need sometime off? Do you need to find a job and start receiving an annual income? </p>
+
+  <p>Many Many options will be waiting for you to try and explore. A great way to go through this is to ask and seek advise from others and learn from their experiences.  </p>
+
+  <p>Stackoverflow sends a survey annually to their website’s users from all around the world and ask them 154 quesions to understand multiple aspects of jobs related to software development and data analytics such as salary, job satisfaction, most used languages and technologies, motivations to accept or quit jobs.. etc. I personally just started my career as a web developer/data scientist and I’m interested heavily to hear what the data say about the industry. Therefore, I used the Stackoverflow survey resutls from 2017 to answer some of the questions I have.</p>
+
+ <p>   <span class="question">My first question: Are the languages used in industry by professional developers being taught in universities? In other words: Do universities teach students useful materials to prepare them for their future careers as developers? <br><br></span></p>
+
+
+
+
+ <p>Alothough there is a big difference in the propotion of professional developers and students in the data as seen in the graph below,<br> </p>
+   <div style="text-align: : left">
+
+  <img src ="profession distribution.png">
+    </div>
+
+<br>
+
+  <P>the number of records for each category is huge at 36131 and 8224 which can still provide a reliable conclusion. 
+Not all students were un-employed and not all professional developers were employed. Therefore, I thought it would be interesting to compare un-employed students with employed students and then to employed professional developers.
+
+The result of the the top most used languages among students is shown below:
+</p>
+
+  <img style="width:500px"  src ="have used languages among students.png">
+
+<p>
+• the most common language used among students is Java. I was expecting this result as most universities teach object-oriented programming on Java.<br>
+• there is a clear difference in the percentages of using Javascript and SQL. These two languages are more popular among employed students as they are widely used in the indstry. SQL is needed to interact with database and it's really hard to find a new entity nowadays without a database. On the other hand, most un-employed students would not necessarily have access to a database. Javascript is an essential language for web development which is mostly what you will end up doing at somepoint as a professional developer in the industry.<br>
+  Now, between employed professional developers and un-employed students:<br>
+
+</p>
+  <img style="width:450px;margin-right:20px;display: inline-block;" src ="top 10 used languages among prof developers.png">
+  <img style="width:450px;margin-left:20px; display: inline-block" src ="top 10 used languages among students.png">
+<br>
+
+<p>
+• Different languages are appeared in the prof delvelopers top 10 like Ruby and typescript which are trending in the industry for web development.<br>
+• the differences I mentioned in the students comparison above can be seen even clearer here: JavaScript and SQL is used 20% more by developers in the industry than it's used among university students. I personally think universities should always look at the market and pay more attention to these languages as they're more likely to be required in students' future careers.
+</p><br>
+
+
+
+ <p>   <span class="question">My second question: I heard in many occasions people saying that it's better to work in a small company as it makes you feel more included and it allows you to handle important projects all by yourself and see the results of your work directly in front of your eyes which is something you won't necessarily get when working for a big company. I also heard other people saying that it's more secure to work in big companies because of their resources. Can this dataset prove any of these rumors? <br><br></span></p>
+
+ <p>To answer this question, I divided the responses based on the company size as follows:</p>
+
+       <img style="width:400px" src ="company size.png"> <br>
+
+   <p> After that, I calculated the average of salary, job satisfaction and career satisfaction, for each category. The values of satisfaction are in the scale from 1 to 10 with 10 being the highest. The results are shown in the table below:</p>
+
+  <img style="width:650px" src ="company size results.png">
+
+<p>•  From the comparison above, we can see that almost all  employees under these categories have similar average value of career satisfaction. On the other hand, Big companies' employees are almost 0.1% les statisfied in their job compared to the other 2 categories. This is not sufficient enough to indicate a difference in the satisfaction. Perhaps what you do at work is less important than the money you get paid at the end of the month, or perhaps these rumers are false and it is all a personal experience that you should take despite of what others say because even employees in the same place feel differently about their jobs. <br>
+• There is a clear difference in salaries between big, medium and small companies where big companies pay the highest average salary to their employees which proves the security people talk about.
+
+</p>
+ <p> <span class="question">My third and last question: What are the strongest motivations behind people leaving their coding job? </span></p>
+
+   
+
+
+     <p> The paricipants who left a coding job were asked 8 questions about the motivations behind their action:<br><br>
+
+
+       You said before that you used to code as part of your job, but no longer do. To what extent do you agree or disagree with the following statements?<br>
+• If money weren't an issue, I would take a coding job again<br>
+• Working as a developer just wasn't for me<br>
+• I have better work-life balance now than I did as a developer<br>
+• My career is going the way I thought it would 10 years ago<br>
+• When I was a developer, I didn't feel like I belonged with my colleagues<br>
+• I don't think my coding skills are up to date<br>
+• I probably won't code for a living ever again<br>
+• I'm still active in the developer community<br>
+     </p>
+
+     <p>I encoded their responses as follow:</p>
+
+          <img style="width:300px"src ="agree_disagree_encoding.png">
+
+          <p>The average value of each question is shown in the graph below:</p>
+          <img style="width:500px"src ="leaving motivations.png">
+
+
+       <p> 853 responses showed that: most of the developers who left their coding jobs they somewhat agreed on the following statements: <br>
+• If money weren't an issue, I would take a coding job again<br>
+• I don't think my coding skills are up to date<br>
+• I'm still active in the developer community<br>
+• My career is going the way I thought it would 10 years ago<br>
+• I have better work-life balance now than I did as a developer<br>
+and disagreed on:<br>
+• Working as a developer just wasn't for me<br>
+• When I was a developer, I didn't feel like I belonged with my colleagues<br>
+in the middle:<br>
+• I probably won't code for a living ever again<br><br>
+It seems like those who left coding jobs still enjoy coding and they still do it but they don't believe it's a secure job as it doesn't pay enough. In addition, coders spend so much time at work which highly affect the work-life balance that everyone should aim to maintain. </p>
+
+<p>You could hear much more than this from people. It's essential that you take their words into account but remember that people are different and no one knows what's best for 'You' more than 'You'. <b>Enjoy expoloring life =) !</b> </p>
+
+
+<p style="font-size: 16px;">To see the code behind this analysis, click <a href="https://github.com/asunaidi/stack-overflow-survey">here</a> </p>
+
+
+
+
+</div>
+
+
+
+</body>
+</html>
