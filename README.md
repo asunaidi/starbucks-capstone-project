@@ -30,5 +30,5 @@ Using Random Forest algorithm, the accuracy and fscore of the best model were 0.
 You can find more about the analysis either on the Jupyter notebook in this repository or on this [blog](https://asunaidi.github.io/starbucks-capstone-project/).
 
 ## Licensing, Authors, Acknowledgements
-I Must give credit to Udacity for such great projects and Starbucks for allowing us to work on their data.
+I Must give credit to Udacity for giving us the opportunity to work on such great projects and Starbucks for allowing us to work on their data.
 
