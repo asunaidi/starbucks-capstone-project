@@ -20,7 +20,13 @@ No libraries are needed other than the ones provided by Anaconda. The code was b
 
 
 ## Results
-The results of my analysis can be seen either on the Jupyter notebook or on this [blog](https://asunaidi.github.io/starbucks-capstone-project/).
+Using Random Forest algorithm, the accuracy and fscore of the best model were 0.6695 and 0.6244 respectively. The most influential factores on offers' success are ordered by the model as follows:
+- Difficulty
+- Membership year 2018
+- Channel - social
+- age
+- income
+You can find more about the analysis either on the Jupyter notebook in this repository or on this [blog](https://asunaidi.github.io/starbucks-capstone-project/).
 
 ## Licensing, Authors, Acknowledgements
 I Must give credit to Udacity for such great projects and Starbucks for allowing us to work on their data.
