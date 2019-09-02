@@ -26,6 +26,7 @@ Using Random Forest algorithm, the accuracy and fscore of the best model were 0.
 - Channel - social
 - age
 - income
+
 You can find more about the analysis either on the Jupyter notebook in this repository or on this [blog](https://asunaidi.github.io/starbucks-capstone-project/).
 
 ## Licensing, Authors, Acknowledgements
