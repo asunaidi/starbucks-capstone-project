@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stackoverflow Blog</title>
+    <title>Starbucks Capstone Project</title>
     <style type="text/css">
     .header {
         width: 100%;
          height:300px;
-         background-image : url(career.jpg);
+         background-image : url(images/starbucks-offer2.png);
          background-repeat: no-repeat;
           background-size: 100% 100% !important;
          
@@ -16,10 +16,35 @@
         color:rgb(0, 38, 77);
         margin-bottom: 50px;
  }
+ .code{
+  color:red;
+  font-style: italic;
+ }
+ .subtitle{
+  width:80%;
+  text-align:  left;
+ }
+ .second-subtitle{
+  width:80%;
+  text-align:  left;
+ }
  .main{
     text-align:  -webkit-center;
 
+ }
+ .bullet-points{
+  text-align: left;
+  width:80%;
+  font-size: 18px;
 
+ }
+ .observations{
+  font-weight: bold;
+  color: green;
+ }
+ .result{
+  color:blue;
+  font-weight: bold;
  }
  hr {
     border: none;
@@ -35,11 +60,7 @@ p{
     font-size: 20px;
     line-height: 23pt;
 }
-.question{
-    font-weight: bold;
-    font-size: 22px;
 
-}
 img{
   margin-top: 30px;
   margin-bottom: 20px;
@@ -52,110 +73,310 @@ img{
 <body>
 <div class ="row header" > </div>
 <div class ="row main" >
- <h1 class="title" >Finally Graduated, What Now?</h1>
+ <h1 class="title" >Starbucks Udacity Capstone Project</h1>
  
- <p>Back at school days, the struggle was all about passing the years and graduating with hopefully good grades. The goal was clear and shared among all students. After graduating from univerisity, you will find yourself in a situation you have not been through before. There is no clear tomorrow and you will need to take full control on how you will spend the rest of your life. Do you want to pursue your studies? Do you need sometime off? Do you need to find a job and start receiving an annual income? </p>
+ <h2 class="subtitle"> Project Overview </h2>
+ <p>This project is part of the Udacity Data Scientist Nanodegree. Starbucks is interested to study previous marketing offers and their impact on different types of customers in order to better direct their marketing strategies. The dataset used in this project contains simulated data that mimics customer behaviour on the Starbucks rewards mobile app. Once every few days, Starbucks sends out an offer to users of the mobile app. An offer can be merely an advertisement for a drink or an actual offer such as a discount or BOGO (buy one get one free). <br>
+Some users might not receive any offer during certain weeks. Not all users receive the same offer, and that is the challenge to solve with this data set.
+</p>
 
-  <p>Many Many options will be waiting for you to try and explore. A great way to go through this is to ask and seek advise from others and learn from their experiences.  </p>
+  <p>The data is contained in three files:<br>
+<b>portfolio.json</b> - containing offer ids and meta data about each offer (duration, type, etc.)<br>
+<b>profile.json</b> - demographic data for each customer<br>
+<b>transcript.json</b> - records for transactions, offers received, offers viewed, and offers completed
+ </p>
 
-  <p>Stackoverflow sends a survey annually to their website’s users from all around the world and ask them 154 quesions to understand multiple aspects of jobs related to software development and data analytics such as salary, job satisfaction, most used languages and technologies, motivations to accept or quit jobs.. etc. I personally just started my career as a web developer/data scientist and I’m interested heavily to hear what the data say about the industry. Therefore, I used the Stackoverflow survey resutls from 2017 to answer some of the questions I have.</p>
+ <h2 class="subtitle"> Problem Statement </h2>
 
- <p>   <span class="question">My first question: Are the languages used in industry by professional developers being taught in universities? In other words: Do universities teach students useful materials to prepare them for their future careers as developers? <br><br></span></p>
+  <p>People respond to offers differently and it’s important to distinguish between different types of people to make the most out of the platform. Some get annoyed from constantly receiving notifications for something they’re not interested in which might in result affect customer satisfaction. In this project, I will study the factors affecting the customer choice on whether to respond to an offer or not and build a machine learning model to predict the customer’s response. I am not a coffee fan but I’m assuming age and income will be important factors. On the other hand, I don’t believe gender will have an impact on the prediction</p>
+
+   <h2 class="subtitle"> Metrics </h2>
+
+
+ <p>  The distribution of different groups might be unbalanced which would result in biased conclusions. Therefore, to avoid this problem from the start, I will use both accuracy, F1-score to measure the performance of the models. </p>
+
+ <h2 class="subtitle"> Analysis </h2>
+
+<h3 class="second-subtitle">Data Exploration and Visualisation</h3>
+
+  <P>Starting with <b>portfolio.json</b>, there are 6 features describing offers:</P>
+    <ul class = "bullet-points" >
+<li> channels (list of strings) – means of marketing </li>
+<li> difficulty (int) - minimum required spend to complete an offer</li>
+<li>duration (int) - time for offer to be open, in days</li>
+<li> id (string) - offer id</li>
+<li> offer_type (string) - type of offer ie BOGO, discount, informational</li>
+<li> reward (int) - reward given for completing an offer</li>
+</ul>
+
+<img style="width:700px"  src ="images/portfolio raw table.JPG"><br>
+
+<p><span class = "observations">Observations:</span><br>
+We have 10 different offers in our dataset and they are communicated through several communication platforms: web, email, mobile and social. These features describing offers will be important for creating our machine learning model later so it’s important to clean them and transform them into the correct format. There are two main things to do here: 
+
+   <ul class = "bullet-points" >
+<li>create 4 columns from the ‘channels’ column for each value as one hot encoding</li>
+<li>one hot encoding for ‘offer_type’ column</li>
+</ul>
+ </p>
+
+
+<p><b>profile.json</b>, 5 variables containing demographic data for customers</p>
+
+<ul class ="bullet-points">
+  <li>age (int) - age of the customer </li>
+<li>became_member_on (int) - date when customer created an app account </li>
+<li>gender (str) - gender of the customer (note some entries contain 'O' for other rather than M or F) </li>
+<li>id (str) - customer id</li>
+<li>income (float) - customer's income</li>
+</ul>
+
+<img style="width:700px"  src ="images/profile raw table.JPG"><br>
+
+<p>We have a total of 17000 customers in this dataset and here are  some brief statistics about the data:</p>
+
+
+<img style="width:850px"  src ="images/stat profile.png"><br>
+
+<p><span class = "observations">Observations:</span><br>
+   <ul class = "bullet-points" >
+ <li>Around 12.8% of the values in Profile dataset are missing at 2175 records where age=118, gender=None & income=NaN</li>
+<li>Approximately 1.4% of the customers chose 'O' which is a shortcut of Others that are not female of male</li>
+<li>The number of male customers are 16% higher than the female cutomers</li>
+<li>0/1 encoding should be performed on gender column</li>
+<li>‘became_member_on’ column should be re transformed to a better format to take advantage of this column later for modelling</li>
+
+</ul>
+ </p>
 
 
 
+<p><b>transcript.json</b></p>
 
- <p>Alothough there is a big difference in the propotion of professional developers and students in the data as seen in the graph below,<br> </p>
-   <div style="text-align: : left">
+<ul class ="bullet-points">
+ <li>event (str) - record description (ie transaction, offer received, offer viewed & offer completed) </li>
+<li>person (str) - customer id</li>
+<li>time (int) - time in hours since start of test. The data begins at time t=0</li>
+<li>value - (dict of strings) - either an offer id or transaction amount depending on the record</li>
 
-  <img src ="profession distribution.png">
-    </div>
+</ul>
+<img style="width:700px"  src ="images/transcript raw table.JPG"><br>
 
+<p>Event column distribution:</p>
+<img style="width:400px"  src ="images/Event distribution.png"><br>
+
+<p><span class = "observations">Observations:</span><br>
+   <ul class = "bullet-points" >
+ <li>There are 306534 records in this dataset mixed of offer transactions and payment transactions. For offer transactions, the value is the offer id whereas for payment transactions, the value is the amount of money the customer paid</li>
+<li>'value' columns should be transformed to a better format so we could extract the information it contains</li>
+</ul>
+ </p>
+
+ <h2 class="subtitle"> Methodology </h2>
+
+<h3 class="second-subtitle">Data Pre-processing</h3>
+
+
+<p><b>Cleaning and Transformaing Steps on Portfolio:</b><br>
+   <ul class = "bullet-points" >
+<li>one-hot encoding for channels column and drop the original column</li>
+<li>one-hot encoding for offer_type column and drop the original column</li>
+</ul>
+</p>
+
+<p><b>Cleaning and Transformaing Steps on Profile:</b><br>
+
+ <ul class = "bullet-points" >
+ <li>remove all missing data as treating them could affect the result and even after deleting them I will still end up with a good number of records</li>
+<li>remove 'O' values from gender column as it's a low number of records compared to females and males which could result in biased conclusion</li>
+<li>add a new column to capture the year the customer has joind the mobile app</li>
+<li>one-hot encoding for the membership year column in the previous point</li>
+<li>drop the original date column and the membership year column as we have now a column for each year</li>
+<li>1/0 encoding for the gender columns female: 1, male: 0</li>
+</ul></p>
+<p><b>Cleaning and Transformaing Steps on Transcript:</b><br>
+ <ul class = "bullet-points" >
+ <li>remove all the transactions made by people with missing values in the profile dataset</li>
+<li>convert time from hours to days to match the unit in the portfolio dataset</li>
+<li>create two new datasets, one for offer transactions and the other is for payment transactions</li>
+<li>tranform the 'value' column to contain either a string of the offer id or a numerical value of the trasaction amount</li>
+</ul></p>
+
+<p><b>Final Dataset:</b><br>
+ <ul class = "bullet-points" >
+ <li>create a dataframe containing all unique pais of 'person_id' and 'offer_id'</li>
+<li>add a column to this dataframe called 'offer_success' which should contain bolean values. 1 if the person responded positively to this offer and 0 other otherwise</li>
+<li>initilize all values of 'offer_success' to 0</li>
+</ul></p>
+
+<p>I defined users who respond effectively to an offer for discount and BOGO as :<br><br>
+ 1) users who viewed the offer after recieving it <br>
+ 2) pay for the offer and complete it <br>
+ 3) all of the above happened within the time limit of this offer <br><br>
+ for Informaitonal offer type as:<br><br>
+  1) users who viewed the offer after recieving it <br>
+  2) pay for the new promoted product <br>
+   3) all of the above happened within the time limit of this promotion effect<br>
+    All other types I considered them as ineffective users.</p>
+
+<p>Based on the rules above, I filled out each row in the 'offer_sccess' column as follows:<br>
+ <ul class = "bullet-points" >
+<li>the column was initilized with 0s</li>
+<li>Iterate over all unique pairs of user_id and offer_id</li>
+<li>get all offer/money transactions for this pair</li>
+<li>if there are no viewed offers or no money transactions --> keep the value 0</li>
+<li>Otherwise, check the type of the offer</li>
+<li>If 'Informatinoal', iterate over every recieved offer and check if there is a transaction happened in between of 'recieved' and 'viewed' and they all occur within the time limit for this offer. If True, change offer_success to 1. If not, keep it 0 </li>
+
+<li>If discount or BOGO, iterate over every recieved offer and check if there is a transaction happened in between of 'recieved' and 'viewed'. If true, check if there is complete offer transaction happened after the transaction and before the offer expires. If True, change offer_success to 1. If not, keep it 0.</li>
 <br>
+<li>last step is joining the portfolio and profile datasets to our final dataset on the person id </li>
+</ul></p>
 
-  <P>the number of records for each category is huge at 36131 and 8224 which can still provide a reliable conclusion. 
-Not all students were un-employed and not all professional developers were employed. Therefore, I thought it would be interesting to compare un-employed students with employed students and then to employed professional developers.
+<p>The above method to create the final dataset took so much time. Therefore I saved  it to a CSV file so that I can read it whenever I need to restart the kernel instead of repeating the whole cleaning process</p>
+<h3 class="second-subtitle">Implementation</h3>
 
-The result of the the top most used languages among students is shown below:
+<p>Now, that we have our dataset clean, we can start exploring the effect of the features on 'offer_sucess'</p>
+
+<p>The table below shows the number of successful purchases for each offer. This table could be very useful for Starbucks because it will direct them towards which offers to focus more on. The most used offers are discount offers</p>
+ <img style="width:600px"  src ="images/sum off successful offers.png"><br>
+
+<p>The table below shows the average value of age and income for every offer_id in both cases: success and fail. The offer number matches the index value of offers in the portfolio dataset shown at the top of the page.</p>
+
+ <img style="width:400px"  src ="images/offers_comparison.png"><br>
+
+<p>From the table above, all groups have an age average of 50 years old which might be because most of the customers belong to this age group. In most cases, those who responded to offers are slightly older and have more income than the customers who didn't respond </p>
+
+<p>Another way to see the impact of the features is to build a machine learning model that predicts whether or not a customer is going to respond to an offer. The metrics will tell us if something is missing or need to be improved. Those features contributing to improving the accuracy are considered to be important and effective</p>
+
+<p>Before building the machine learning algorithm, I will follow the following : 
+remove person_id and offer_id columns becase we're not interested in the id itself but rather, the features describing person and offer. Also, we need to scale the numerical columns because these columns have different value ranges and this will give some features higher priority just because that their values are bigger... Now It's ready !!</p>
+
+<p><b>Input Features</b>: ['difficulty', 'duration', 'reward', 'channel_email', 'channel_mobile', 'channel_social', 'channel_web', 'offerType_informational', 'offerType_BOGO', 'offerType_dicount', 'age', 'gender', 'income', 'membership_year_2013', 'membership_year_2014', 'membership_year_2015', 'membership_year_2016', 'membership_year_2017', 'membership_year_2018']<br>
+<b>Target</b>: 'offer_success'<br>
+<b>Split ratio</b>: train:test 80%:20%</p>
+
+<p>The first model I will use is a naive model that always predicts that the answer is success. This model will be used later for comparison</p>
+
+<p>I will then use machine learning algorithms: Random Forest, SVM and Gaussian Naive Bayes. They will run on differet sample sizes and time, accracy and f-score will be measured for every model. The model that produces the best results will then be picked to be optimized further using grid search and a list of parameters. If the algorithm supports features importance, I will run it for the best model to get the most infleuntial features. </p>
+
+<p><b>Why those algorithms?</b><br>
+
+<b>Random Forest:</b><br>
+<ul class = "bullet-points" >
+<li>It can measure the importance or effect the input features have on the predictor</li>
+<li>It can handle all types of features: Binary, Categorical and Numerical.</li>
+<li>The algorithm can run in multiple processors which results in faster computation time.</li>
+<li>It does very well in term of performance and speed with high dimensional data since it subsets the data.</li>
+<li>although it's constructed from decicion trees, it has a better variance level compared to decision trees as it averages the variance of all its decision trees and it would still have a low bias.</li><br></ul></p>
+  
+
+<p><b>SVM:</b><br>
+<ul class = "bullet-points" >
+<li>SVM deliver a unique solution, since the optimality problem is convex</li>
+<li>since it maximizes the margin between two classes, when tuned properly, it generally gives a precise prediction.</li>
+<li>It's relatively robust against overfitting, especially in high-dimensional space.</li>
+</ul>
+<br></p>
+
+<p><b>Gaussian Naive Bayes:</b><br>
+<ul class = "bullet-points" >
+
+  <li>Naive Bayes is a simple and easy to implement algorithm and for that reason it might perform better than complex models when the number of records is not big enough</li>
+</ul>
 </p>
 
-  <img style="width:500px"  src ="have used languages among students.png">
+ <h2 class="subtitle"> Results  </h2>
 
-<p>
-• the most common language used among students is Java. I was expecting this result as most universities teach object-oriented programming on Java.<br>
-• there is a clear difference in the percentages of using Javascript and SQL. These two languages are more popular among employed students as they are widely used in the indstry. SQL is needed to interact with database and it's really hard to find a new entity nowadays without a database. On the other hand, most un-employed students would not necessarily have access to a database. Javascript is an essential language for web development which is mostly what you will end up doing at somepoint as a professional developer in the industry.<br>
-  Now, between employed professional developers and un-employed students:<br>
+ <p><b>Results of Naive Model</b><br>
+ Accuracy of the naive model: <span class = "result">0.45</span><br>
+F-score of the naive model: <span class = "result">0.62</span>
+</p>
+
+
+<p><b>Results of the machine learning models</b><br>
+As shown in the graghs below,<br>
+<ul class = "bullet-points" >
+
+<li>The naive model (the dashed line on the graph) outperformed all these model</li>
+
+<li>Random Forest Classifier is doing the best on the training data which indicates overfitting as it doesn't do as good on the testing data. The main reason I believe behind the overfitting is because the training test was done on only 300 data whereas all the testing set was included in the process. </li>
+
+<li>On the testing set, SVC did slightly better than the others but since it takes more time to train, I will choose Random Forest to continue this project with. Random Forest will be very useful for performing features Importance analysis</li></ul></p>
+
+
+ <img style="width:800px"  src ="images/results of three models.png"><br>
+
+
+<p><b>Optimizing Random Forest model</b><br><br>
+
+  <span class = "code">parameters = {<br>
+    'bootstrap': [True],<br>
+    'max_depth': [80, 100],<br>
+    'min_samples_leaf': [3, 5],<br>
+    'min_samples_split': [8, 12],<br>
+    'n_estimators': [100, 1000]<br>}</span>
+<br><br>
+
+
+run Grid Search in parallel:<br>
+<span class ="code">GridSearchCV(clf, parameters, scoring=scorer,  n_jobs = 6)</span><br><br>
+
+
+best model:<br>
+<span class = "code">RandomForestClassifier(bootstrap=True,<br> class_weight=None, criterion='gini',<br>
+            max_depth=80, max_features='auto', <br>max_leaf_nodes=None,<br>
+            min_impurity_decrease=0.0, <br>min_impurity_split=None,<br>
+            min_samples_leaf=5, min_samples_split=8,<br>
+            min_weight_fraction_leaf=0.0, n_estimators=100, <br>n_jobs=None,<br>
+            oob_score=False, random_state=3, verbose=0, <br>warm_start=False)</span><br><br>
+
+            Optimization results:
+</p>
+
+ <img style="width:450px"  src ="images/random forest tuning.png"><br>
+
+
+            <p>The hyperparameters tuning has increased the accuracy and fscore by 3.7% and 4.5% respectively. The results have slightly increased and the final results are not that high and that might be due to many reasons:<br>
+<ul class = "bullet-points" >
+<li>performance of my machine prevented me to add more parameters or increase the range of the parameters' values in the hyperparameters tuning process.</li>
+<li>I only tried 3 machine learning algorithms and worked on improving only one of them. Trying other methods might outperform Random forest</li>
+<li>the variance can't be explained fully only by the features we have. Therefore, If we gather more features about the customers and the orders they usually make, we might know better what offers they might be interested in</li></ul>
+
 
 </p>
-  <img style="width:450px;margin-right:20px;display: inline-block;" src ="top 10 used languages among prof developers.png">
-  <img style="width:450px;margin-left:20px; display: inline-block" src ="top 10 used languages among students.png">
-<br>
 
-<p>
-• Different languages are appeared in the prof delvelopers top 10 like Ruby and typescript which are trending in the industry for web development.<br>
-• the differences I mentioned in the students comparison above can be seen even clearer here: JavaScript and SQL is used 20% more by developers in the industry than it's used among university students. I personally think universities should always look at the market and pay more attention to these languages as they're more likely to be required in students' future careers.
-</p><br>
+<p><b>Features Importance:</b><br></p>
 
+ <img style="width:450px"  src ="images/feature importance results.png"><br>
 
+<p><b>Observations:</b><br>
+<ul class = "bullet-points" >
+  <li>The price of the offer had the highest influence on the customers' response to an offer and this makes sense as it's not smart to pay a high amount of money to get an offer when you can just not spend a penny and save your money to the things you really need and want.</li>
 
- <p>   <span class="question">My second question: I heard in many occasions people saying that it's better to work in a small company as it makes you feel more included and it allows you to handle important projects all by yourself and see the results of your work directly in front of your eyes which is something you won't necessarily get when working for a big company. I also heard other people saying that it's more secure to work in big companies because of their resources. Can this dataset prove any of these rumors? <br><br></span></p>
+<li>The second factor is the membership year 2018, this also makes sense as the most recent users registered on the mobile app are most likely to be the most active users during the experiement.</li>
 
- <p>To answer this question, I divided the responses based on the company size as follows:</p>
-
-       <img style="width:400px" src ="company size.png"> <br>
-
-   <p> After that, I calculated the average of salary, job satisfaction and career satisfaction, for each category. The values of satisfaction are in the scale from 1 to 10 with 10 being the highest. The results are shown in the table below:</p>
-
-  <img style="width:650px" src ="company size results.png">
-
-<p>•  From the comparison above, we can see that almost all  employees under these categories have similar average value of career satisfaction. On the other hand, Big companies' employees are almost 0.1% les statisfied in their job compared to the other 2 categories. This is not sufficient enough to indicate a difference in the satisfaction. Perhaps what you do at work is less important than the money you get paid at the end of the month, or perhaps these rumers are false and it is all a personal experience that you should take despite of what others say because even employees in the same place feel differently about their jobs. <br>
-• There is a clear difference in salaries between big, medium and small companies where big companies pay the highest average salary to their employees which proves the security people talk about.
-
+<li>I expected that gender won't have a great impact and the data proved it. Also, as expected age and gender are effective factors on offers.</li></ul>
 </p>
- <p> <span class="question">My third and last question: What are the strongest motivations behind people leaving their coding job? </span></p>
-
-   
 
 
-     <p> The paricipants who left a coding job were asked 8 questions about the motivations behind their action:<br><br>
 
 
-       You said before that you used to code as part of your job, but no longer do. To what extent do you agree or disagree with the following statements?<br>
-• If money weren't an issue, I would take a coding job again<br>
-• Working as a developer just wasn't for me<br>
-• I have better work-life balance now than I did as a developer<br>
-• My career is going the way I thought it would 10 years ago<br>
-• When I was a developer, I didn't feel like I belonged with my colleagues<br>
-• I don't think my coding skills are up to date<br>
-• I probably won't code for a living ever again<br>
-• I'm still active in the developer community<br>
-     </p>
 
-     <p>I encoded their responses as follow:</p>
+ <h2 class="subtitle"> Conclusion </h2>
 
-          <img style="width:300px"src ="agree_disagree_encoding.png">
+<p>In this project, I used Starbucks previous-offers data to invistigate how customers respond to different types of offers. Understanding each customer and whether they are interested in recieving notifications about certains offers or not would help Starbucks to target their customers' needs with offers which in result would help Starbucks increasing their profit.</p>
 
-          <p>The average value of each question is shown in the graph below:</p>
-          <img style="width:500px"src ="leaving motivations.png">
+<p>My approach to Starbuck problems is to build a machine learning model that can predict whether the customer is going to respond to an offer or not. The best model was built on Random Forest and had an accuracy and f-score of 0.67 and 0.62 respectively. The features importance analysis showed that the price of the offer is the most influential factor affecting offer success followed by being a relatively new user on the app.</p>
+<p>To improve the model futher, I think it would be more effective to consider not only if the offer was successful but also the number of times the customer responded to it. Valuing higher number of purchasing more would help us making sure that this was not a one-time purchase that might not be repeated.</p>
 
 
-       <p> 853 responses showed that: most of the developers who left their coding jobs they somewhat agreed on the following statements: <br>
-• If money weren't an issue, I would take a coding job again<br>
-• I don't think my coding skills are up to date<br>
-• I'm still active in the developer community<br>
-• My career is going the way I thought it would 10 years ago<br>
-• I have better work-life balance now than I did as a developer<br>
-and disagreed on:<br>
-• Working as a developer just wasn't for me<br>
-• When I was a developer, I didn't feel like I belonged with my colleagues<br>
-in the middle:<br>
-• I probably won't code for a living ever again<br><br>
-It seems like those who left coding jobs still enjoy coding and they still do it but they don't believe it's a secure job as it doesn't pay enough. In addition, coders spend so much time at work which highly affect the work-life balance that everyone should aim to maintain. </p>
 
-<p>You could hear much more than this from people. It's essential that you take their words into account but remember that people are different and no one knows what's best for 'You' more than 'You'. <b>Enjoy expoloring life =) !</b> </p>
+<h2 class = "subtitle"> Resources</h2>
+<p>I used 2 functions from visuals.py file which was given to us as part of our first project ‘supervised learning’ in this Nanodegree. I also used some of the code I submitted for the first project to build supervised machine learning models
+</p>
 
-
-<p style="font-size: 16px;">To see the code behind this analysis, click <a href="https://github.com/asunaidi/stack-overflow-survey">here</a> </p>
+<p style="font-size: 16px;">To see the code behind this analysis, click <a href="https://github.com/asunaidi/starbucks-capstone-project/tree/gh-pages">here</a> </p>
 
 
 
